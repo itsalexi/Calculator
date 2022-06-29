@@ -51,17 +51,20 @@ let firstNumbers = [];
 let secondNumbers = [];
 let lastOperation = "";
 
-let firstNumber = NaN;
-let secondNumber = NaN;
+let firstNumber = 0;
+let secondNumber = 0;
 let calculated = false;
 
 function display(type, value) {
+  if (secondNumber == 0 || firstNumber == 0) {
+    if (value == "/" && nextOperation == true) {
+      alert("Stop dividing by 0!");
+      return;
+    }
+  }
+
   if (type == "operation") {
     if (nextOperation == true && lastOperation != "") {
-      if (value == "/" && secondNumber == 0) {
-        alert("Stop dividing by 0!");
-        return;
-      }
       console.log("THEY MET!");
       result = operate(lastOperation, firstNumber, secondNumber);
       currentDisplay.textContent = result;
@@ -104,7 +107,13 @@ function display(type, value) {
         console.log("triggered second?");
       }
     } else if (value == "=") {
-      if (isNaN(firstNumber) || isNaN(secondNumber)) return;
+      if (secondNumber == 0 || firstNumber == 0) {
+        if (lastOperation == "/" && nextOperation == true) {
+          alert("Stop dividing by 0!");
+          return;
+        }
+      }
+
       result = operate(lastOperation, firstNumber, secondNumber);
       currentDisplay.textContent = result;
       lastDisplay.textContent = `${firstNumber} ${lastOperation} ${secondNumber} =`;
@@ -130,8 +139,8 @@ function display(type, value) {
 }
 
 function clear() {
-  firstNumber = NaN;
-  secondNumber = NaN;
+  firstNumber = 0;
+  secondNumber = 0;
   firstNumbers = [];
   secondNumbers = [];
   lastOperation = "";
