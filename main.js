@@ -22,3 +22,21 @@ function operate(sign, a, b) {
     return divide(a, b);
   }
 }
+
+function selectInput(e) {
+  if (e.target.tagName !== "BUTTON") return;
+  let id = e.target.id;
+  let element = e.target;
+  if (id == "number") {
+    input = element.getAttribute("data-number");
+  } else if (id == "operation") {
+    input = element.getAttribute("data-operation");
+  } else {
+    return;
+  }
+
+  console.log(id);
+  console.log(input);
+}
+
+document.addEventListener("click", selectInput);

@@ -10,10 +10,9 @@
     gap: 10px;
 } */
 
-#setting {
+.setting {
   grid-column: span 2;
 }
-
 
 .display {
   padding: 10px 0px;
