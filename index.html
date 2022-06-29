@@ -11,6 +11,9 @@
 </head>
 
 <body>
+    <header class="header">
+        <h1 id="title">Calculator</h1>
+    </header>
     <main class="main">
         <div class="calculator">
             <div class="screen">
@@ -21,8 +24,8 @@
 
             </div>
             <div class="buttons">
-                <button class="button setting" id="setting" data-setting="clear">CLEAR</button>
-                <button class="button setting" id="setting" data-setting="back">BACK</button>
+                <button class="button setting clear" id="setting" data-setting="clear">CLEAR</button>
+                <button class="button setting back" id="setting" data-setting="back">BACK</button>
                 <button class="button" id="number" data-number="7">7</button>
                 <button class="button" id="number" data-number="8">8</button>
                 <button class="button" id="number" data-number="9">9</button>
@@ -43,7 +46,10 @@
         </div>
     </main>
 
-
+    <footer id="footer">
+        <p>Created by <a href="https://github.com/itsalexi">Alexi</a></p>
+        <p>Built for <a href="https://theodinproject.com/">The Odin Project</a></p>
+    </footer>
     <!-- SCRIPTS -->
     <script src="main.js"></script>
 </body>
