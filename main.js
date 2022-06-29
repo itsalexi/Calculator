@@ -53,11 +53,12 @@ let lastOperation = "";
 
 let firstNumber = 0;
 let secondNumber = 0;
+let calculated = false;
 
 function display(type, value) {
   if (type == "operation") {
     if (nextOperation == true && lastOperation != "") {
-      if (secondNumber == 0) {
+      if (value == "/" && secondNumber == 0) {
         alert("Stop dividing by 0!");
         return;
       }
@@ -66,14 +67,16 @@ function display(type, value) {
       currentDisplay.textContent = result;
       lastDisplay.textContent = `${result} ${value}`;
       firstNumber = result;
-      secondNumbers = [];
       secondNumber = result;
+      secondNumbers = Array.from(String(secondNumber));
       lastOperation = value;
     } else {
-      nextOperation = true;
       lastOperation = value;
+      lastDisplay.textContent = `${firstNumber} ${lastOperation}`;
+      nextOperation = true;
     }
   } else if (type == "number") {
+    calculated = false;
     if (nextOperation == false) {
       firstNumbers.push(value);
       firstNumber = firstNumbers.join("");
@@ -84,7 +87,52 @@ function display(type, value) {
       currentDisplay.textContent = secondNumber;
       lastDisplay.textContent = `${firstNumber} ${lastOperation}`;
     }
+  } else if (type == "setting") {
+    if (value == "clear") {
+      clear();
+      console.log("triggered clear?");
+    } else if (value == "back") {
+      if (nextOperation == false && calculated != true) {
+        back(firstNumbers);
+        firstNumber = firstNumbers.join("");
+        currentDisplay.textContent = firstNumber;
+        console.log("triggered first?");
+      } else {
+        back(secondNumbers);
+        secondNumber = secondNumbers.join("");
+        currentDisplay.textContent = secondNumber;
+        console.log("triggered second?");
+      }
+    } else if (value == "=") {
+      result = operate(lastOperation, firstNumber, secondNumber);
+      currentDisplay.textContent = result;
+      lastDisplay.textContent = `${firstNumber} ${lastOperation} ${secondNumber} =`;
+      firstNumber = result;
+      secondNumber = result;
+      secondNumbers = Array.from(String(secondNumber));
+      firstNumbers = Array.from(String(firstNumber));
+
+      calculated = true;
+      nextOperation = false;
+    }
   }
+}
+
+function clear() {
+  firstNumber = 0;
+  secondNumber = 0;
+  firstNumbers = [];
+  secondNumbers = [];
+  lastOperation = "";
+  result = "";
+  nextOperation = false;
+  currentDisplay.textContent = "0";
+  lastDisplay.textContent = "";
+}
+
+function back(array) {
+  debug = array.pop();
+  console.log(debug);
 }
 
 document.addEventListener("click", selectInput);
