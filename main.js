@@ -152,6 +152,8 @@ function clear() {
 
 function addDot(array) {
   if (array.includes(".")) return;
+  if (array.includes("0.")) return;
+
   if (array.length == 0) {
     array.push("0.");
     return;
