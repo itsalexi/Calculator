@@ -51,8 +51,8 @@ let firstNumbers = [];
 let secondNumbers = [];
 let lastOperation = "";
 
-let firstNumber = 0;
-let secondNumber = 0;
+let firstNumber = NaN;
+let secondNumber = NaN;
 let calculated = false;
 
 function display(type, value) {
@@ -104,6 +104,7 @@ function display(type, value) {
         console.log("triggered second?");
       }
     } else if (value == "=") {
+      if (isNaN(firstNumber) || isNaN(secondNumber)) return;
       result = operate(lastOperation, firstNumber, secondNumber);
       currentDisplay.textContent = result;
       lastDisplay.textContent = `${firstNumber} ${lastOperation} ${secondNumber} =`;
@@ -114,13 +115,23 @@ function display(type, value) {
 
       calculated = true;
       nextOperation = false;
+    } else if (value == ".") {
+      if (nextOperation == false && calculated != true) {
+        addDot(firstNumbers);
+        firstNumber = firstNumbers.join("");
+        currentDisplay.textContent = firstNumber;
+      } else {
+        addDot(secondNumbers);
+        secondNumber = secondNumbers.join("");
+        currentDisplay.textContent = secondNumber;
+      }
     }
   }
 }
 
 function clear() {
-  firstNumber = 0;
-  secondNumber = 0;
+  firstNumber = NaN;
+  secondNumber = NaN;
   firstNumbers = [];
   secondNumbers = [];
   lastOperation = "";
@@ -128,6 +139,15 @@ function clear() {
   nextOperation = false;
   currentDisplay.textContent = "0";
   lastDisplay.textContent = "";
+}
+
+function addDot(array) {
+  if (array.includes(".")) return;
+  if (array.length == 0) {
+    array.push("0.");
+    return;
+  }
+  array.push(".");
 }
 
 function back(array) {
