@@ -66,12 +66,11 @@ function display(type, value) {
   if (type == "operation") {
     if (nextOperation == true && lastOperation != "") {
       console.log("THEY MET!");
-      result = operate(lastOperation, firstNumber, secondNumber);
+      result = round(operate(lastOperation, firstNumber, secondNumber), 12);
       currentDisplay.textContent = result;
       lastDisplay.textContent = `${result} ${value}`;
       firstNumber = result;
-      secondNumber = result;
-      secondNumbers = Array.from(String(secondNumber));
+      secondNumbers = [];
       lastOperation = value;
     } else {
       lastOperation = value;
@@ -114,12 +113,12 @@ function display(type, value) {
         }
       }
 
-      result = operate(lastOperation, firstNumber, secondNumber);
+      result = round(operate(lastOperation, firstNumber, secondNumber), 12);
       currentDisplay.textContent = result;
       lastDisplay.textContent = `${firstNumber} ${lastOperation} ${secondNumber} =`;
       firstNumber = result;
       secondNumber = result;
-      secondNumbers = Array.from(String(secondNumber));
+      secondNumbers = [];
       firstNumbers = Array.from(String(firstNumber));
 
       calculated = true;
@@ -148,6 +147,10 @@ function clear() {
   nextOperation = false;
   currentDisplay.textContent = "0";
   lastDisplay.textContent = "";
+}
+
+function round(num, dec) {
+  return Number(Math.round(num + "e" + dec) + "e-" + dec);
 }
 
 function addDot(array) {
